@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+dt, dd{
+   padding: 0;  
+   margin: 0 2em; 
+} 
+
+dd{
+    padding: 0.5em 0;
+    border-bottom: 1px solid gray;
+    font-style: italic; 
+}
