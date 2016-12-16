@@ -15,8 +15,8 @@
         
         <form action="vierOpEenRij.php" method="post">
             <h1>Kies een kleur: </h1><br>
-            <input type="radio" name="kleur" value="geel">Geel<br>
-            <input type="radio" name="kleur" value="rood">Rood<br>
+            <input type="radio" name="kleur" value="1">Geel<br>
+            <input type="radio" name="kleur" value="2">Rood<br>
             <input type="submit" value="Versturen">
         </form>
 
