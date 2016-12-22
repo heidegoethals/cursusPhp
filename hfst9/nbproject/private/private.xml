@@ -3,16 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/xampp/htdocs/php/hfst9/Verzameling.php</file>
+            <file>file:/C:/xampp/htdocs/php/hfst9/ChatBericht.php</file>
+            <file>file:/C:/xampp/htdocs/php/hfst9/Film.php</file>
+            <file>file:/C:/xampp/htdocs/php/hfst9/kiesNickname.php</file>
+            <file>file:/C:/xampp/htdocs/php/hfst9/vierOpEenRij.php</file>
             <file>file:/C:/xampp/htdocs/php/hfst9/films.php</file>
-            <file>file:/C:/xampp/htdocs/php/hfst9/gegevensOphalenForm.php</file>
-            <file>file:/C:/xampp/htdocs/php/hfst9/dbGegevensVerwijderen.php</file>
-            <file>file:/C:/xampp/htdocs/php/hfst9/FilmsOpvragen.php</file>
-            <file>file:/C:/xampp/htdocs/php/hfst9/ModuleLijst.php</file>
-            <file>file:/C:/xampp/htdocs/php/hfst9/dbAlleGegevensOphalenParams.php</file>
-            <file>file:/C:/xampp/htdocs/php/hfst9/FilmToevoegen.php</file>
-            <file>file:/C:/xampp/htdocs/php/hfst9/dbGegevensOphalen.php</file>
-            <file>file:/C:/xampp/htdocs/php/hfst9/GegevensBewerken.php</file>
-            <file>file:/C:/xampp/htdocs/php/hfst9/modulesOpzoeken.php</file>
+            <file>file:/C:/xampp/htdocs/php/hfst9/gastenboek.php</file>
+            <file>file:/C:/xampp/htdocs/php/hfst9/chat.php</file>
+            <file>file:/C:/xampp/htdocs/php/hfst9/opmaakChat.css</file>
+            <file>file:/C:/xampp/htdocs/php/hfst9/kleurKiezen.php</file>
+            <file>file:/C:/xampp/htdocs/php/hfst9/bewerkFilm.php</file>
+            <file>file:/C:/xampp/htdocs/php/hfst9/testGastenboek.php</file>
+            <file>file:/C:/xampp/htdocs/php/hfst9/Bericht.php</file>
         </group>
     </open-files>
 </project-private>

@@ -8,7 +8,14 @@ if(!isset($_SESSION["kleur"])){
     $url = 'kleurKiezen.php'; 
     header("Location: $url"); 
 }
-if (isset($_GET["action"]) && isset($_GET["action"])=="klik"){
+if (isset($_GET["action"]) && $_GET["action"]=="vernieuw"){
+   
+}
+elseif (isset($_GET["action"]) && $_GET["action"]=="nieuwSpel"){
+    $rooster = new Rooster; 
+    $rooster->nieuwSpel();     
+}
+elseif (isset($_GET["action"]) && $_GET["action"]=="klik"){
     $rooster = new Rooster; 
     $rooster->klik($_GET["rij"], $_GET["kolom"]); 
 }
@@ -63,6 +70,20 @@ class Rooster{
         }
          
     }
+    public function nieuwSpel(){
+            $dbh = new PDO("mysql:host=localhost;dbname=cursusphp;charset=utf8", "cursusgebruiker", "cursuspwd"); 
+            for ($i=1; $i<=6; $i++){
+                for ($j=1; $j<=7; $j++){
+                    $sql = "update vieropeenrij_spelbord set status = :status where rijnummer = :rijnummer and kolomnummer = :kolomnummer"; 
+                    $stmt = $dbh->prepare($sql); 
+                    $resultSet = $stmt->execute(array(
+                        ':status'=> 0,
+                        ':rijnummer'=>  $i,
+                        ':kolomnummer'=>  $j,
+                    )); 
+                }
+            }
+    }
 }
 
 ?>
@@ -72,6 +93,12 @@ class Rooster{
         <meta charset="utf-8">
         <title>Vier op een rij</title>
         <!--<link href="opmaakVier.css" rel="stylesheet" type="text/css">-->
+        <style>
+            img, a {
+                margin: -2px 0; 
+                padding: 0; 
+            }
+        </style>
     </head>
     <body>
         <h1>Vier op een rij</h1>
@@ -86,6 +113,9 @@ class Rooster{
                 ?><br><?php
             }
         ?>
+                <a href="vierOpEenRij.php?action=nieuwSpel" >Nieuw spel</a>
+                <a href="vierOpEenRij.php?action=vernieuw" >Vernieuw bord</a>
+
     </body>
 </html>
 
