@@ -57,7 +57,7 @@ class Rooster{
                     )); 
                 }
             }
-        for ($i=1; $i<=4; $i++){
+        for ($i=1; $i<=20; $i++){
         $a = rand(1, 4); 
         $b = rand(1, 4);
         $this->onClick($a, $b); 
