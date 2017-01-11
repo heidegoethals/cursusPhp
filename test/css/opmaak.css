@@ -1,0 +1,72 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 22, 2016, 11:59:23 AM
+    Author     : heide.goethals
+*/
+/***** algemeen *****/ 
+body{
+    width: auto; 
+    max-width: 1200px; 
+    min-width: 400px; 
+    padding-bottom: 2em; 
+}
+
+.container{
+    width: 90% 
+    margin: 0 auto;
+        
+}
+
+.full-width{
+    width: 100%; 
+        min-width: 500px; 
+        max-width: 900px; 
+        overflow: scroll; 
+}
+
+.fotoR{
+    float: right; 
+    width: 400px; 
+    margin: 0.5em 1em; 
+}
+
+.clear{
+    clear: both; 
+    margin-top: 0.5em; 
+}
+
+/*clearfix hack*/
+.clearFix:before, .clearFix:after{
+    content: "";
+    display: table;
+}
+.clearFix:after{
+    clear: both;
+}
+/* enkel voor IE6/7 */
+.clearFix{
+    *zoom: 1; 
+}
+
+.scroll{
+    width: inherit; 
+    height: 450px; 
+    overflow: scroll; 
+}
+
+dd{
+    margin-left: 2em; 
+}
+
+p .glyphicon{
+    font-size: 0.8em; 
+    margin-right: 1em; 
+}
+
+strong{
+    color: #428bca;
+}
