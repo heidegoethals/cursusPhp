@@ -1,14 +1,9 @@
 <?php
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 use Projecten\Bakkerij\Entities\Klant; 
 use Projecten\Bakkerij\Entities\Product; 
 use Projecten\Bakkerij\Entities\Bestelling; 
+use Projecten\Bakkerij\Entities\BestelLijn; 
 use Doctrine\Common\ClassLoader; 
 require_once("Doctrine/Common/ClassLoader.php"); 
 
@@ -68,12 +63,30 @@ print('<br>');
 print($product->getPrijs()); 
 print('<br>'); 
 
+
+
+print('<h2>BestelLijn</h2>');
+
+$bestelLijn = new BestelLijn($product, 2); 
+print_r($bestelLijn->getAantal()); 
+print('<br>'); 
+print_r($bestelLijn->getProduct());
+print('<br>'); 
+
+print_r($bestelLijn->getTotaalPrijs()); 
+
+
+
 print('<h2>Bestelling</h2>');
+$bestelLijn2 = new BestelLijn($product2, 1000); 
+
 $best = new Bestelling($klant); 
-$best->addProduct($product); 
-$best->addProduct($product2); 
+$best->addBestellijn($bestelLijn); 
+$best->addBestellijn($bestelLijn2); 
 $best->setAfhaalDag('maandag'); 
-print_r($best->getProducten()); 
+
+
+print_r($best->getBestellijnen()); 
 print('<br>'); 
 print('<br>'); 
 print($best->getAfhaalDag()); 
@@ -84,3 +97,11 @@ print('<br>');
 print('<br>'); 
 print_r($best->getKlant()); 
 
+print('<br>'); 
+print('<br>'); 
+
+$lijst = array(); 
+array_push($lijst, $product); 
+array_push($lijst, $product2); 
+$best2 = Bestelling::create(456, $lijst, 'maandag', 1.1, $klant); 
+print_r($best2); 

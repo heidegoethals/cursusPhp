@@ -3,8 +3,9 @@
 namespace Projecten\Bakkerij\Entities; 
 
 class Bestelling {
+    private static $bestelMap = array(); 
     private $bestelId; 
-    private $producten = array(); 
+    private $bestellijnen = array(); 
     private $afhaalDag; 
     private $totaalPrijs; 
     private $klant; 
@@ -15,12 +16,38 @@ class Bestelling {
         $this->totaalPrijs = 0; 
     }
     
+    public static function create($bestelId, $bestellijnen, $afhaalDag, $totaalPrijs, $klant) {
+        if (!isset(self::$bestelMap[$bestelId])) {
+            self::$bestelMap[$bestelId] = new Bestelling($bestelId);
+        }
+        $bestelling = self::$bestelMap[$bestelId]; 
+        $bestelling->bestelId = $bestelId; 
+        $bestelling->bestellijnen = $bestellijnen; 
+        $bestelling->afhaalDag = $afhaalDag; 
+        $bestelling->totaalPrijs = $totaalPrijs; 
+        $bestelling->klant = $klant; 
+        return $bestelling;
+    }
+    
+    public static function createZonderBestellijnen($bestelId, $afhaalDag, $totaalPrijs, $klant) {
+        if (!isset(self::$bestelMap[$bestelId])) {
+            self::$bestelMap[$bestelId] = new Bestelling($bestelId);
+        }
+        $bestelling = self::$bestelMap[$bestelId]; 
+        $bestelling->bestelId = $bestelId; 
+
+        $bestelling->afhaalDag = $afhaalDag; 
+        $bestelling->totaalPrijs = $totaalPrijs; 
+        $bestelling->klant = $klant; 
+        return $bestelling;
+    }
+   
     function getBestelId() {
         return $this->bestelId;
     }
 
-    function getProducten() {
-        return $this->producten;
+    function getBestelLijnen() {
+        return $this->bestellijnen;
     }
 
     function getAfhaalDag() {
@@ -35,9 +62,9 @@ class Bestelling {
         return $this->klant;
     }
 
-    function addProduct($product) {
-        array_push($this->producten, $product);
-        $this->totaalPrijs += $product->getPrijs(); 
+    function addBestelLijn($bestellijn) {
+        array_push($this->bestellijnen, $bestellijn);
+        $this->totaalPrijs += $bestellijn->getTotaalPrijs(); 
     }
 
     function setAfhaalDag($afhaalDag) {
