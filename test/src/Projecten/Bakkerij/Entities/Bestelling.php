@@ -35,13 +35,12 @@ class Bestelling {
         }
         $bestelling = self::$bestelMap[$bestelId]; 
         $bestelling->bestelId = $bestelId; 
-
         $bestelling->afhaalDag = $afhaalDag; 
         $bestelling->totaalPrijs = $totaalPrijs; 
         $bestelling->klant = $klant; 
         return $bestelling;
     }
-   
+    
     function getBestelId() {
         return $this->bestelId;
     }

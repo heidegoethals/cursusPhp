@@ -8,7 +8,9 @@ use Projecten\Bakkerij\Data\ProductDAO;
 class ProductService {
     
     public function getProducten() {
-        //TODO 
+        $productDAO = new ProductDAO; 
+        $producten = $productDAO->getAll(); 
+        return $producten; 
     }
 }
 

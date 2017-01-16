@@ -51,5 +51,14 @@ class BestellijnDAO {
         }
         $dbh = null;
    }
+   
+   public function slaOpInDatabase($bestellijn, $bestelId) {
+       $sql = "insert bestellijnen set bestelId = :bestelid, productId = :productid, aantal = :aantal";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute(array(':bestelid' => $bestelId, ':productid' => $bestellijn->getProduct()->getProductId(),
+            ':aantal' => $bestellijn->getAantal()));
+        $dbh = null;
+   }
     
 }

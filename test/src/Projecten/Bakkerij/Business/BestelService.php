@@ -13,7 +13,7 @@ class BestelService{
     public function getBestellingen($klant) {
         $bestelDAO = new BestellingDAO; 
         $bestellingen = $bestelDAO->getByEmail($klant->getEmail()); 
-        $bestellijnDAO = new BestellijnDAO(); 
+        $bestellijnDAO = new BestellijnDAO; 
         foreach ($bestellingen as $bestelling){
             $bestellijnDAO->addByBestelIdToBestellingen($bestelling->getBestelId()); 
         }
@@ -21,14 +21,23 @@ class BestelService{
     }
     
     public function startNieuweBestelling($klant){
-        //TODO
+        $bestelling = new Bestelling($klant); 
+        return $bestelling;
     }
     
     public function voegToe($bestelling, $product, $aantal){
-        //TODO
+        $bestellijn = new BestelLijn($product, $aantal); 
+        $bestelling->addBestelLijn($bestellijn); 
     }
     
     public function slaBestellingOp($bestelling, $afhaalDag){
-        //TODO - ook gegevens van dag opvragen
+        $bestelling->setAfhaalDag($afhaalDag); 
+        $bestellingDAO = new BestellingDAO; 
+        $bestellingDAO->slaBestellingOp($bestelling);  
+    }
+    
+    public function deleteBestelling($bestelling){
+        $bestelDAO = new BestellingDAO; 
+        $bestelDAO->deleteBestelling($bestelling); 
     }
 }

@@ -64,5 +64,28 @@ class BestellingDAO {
         $dbh = null;
         return $bestellingen;
     }
+    
+    public function slaBestellingOp($bestelling) {
+        $sql = "insert bestelling set afhaalDag = :afhaaldag, totaalPrijs = :totaalprijs, emailKlant = :emailklant";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute(array(':afhaaldag' => $bestelling->getAfhaalDag(), ':totaalprijs' => $bestelling->getTotaalPrijs(),
+            ':emailklant' => $bestelling->getKlant()->getEmail()));
+        $dbh = null;
+        $bestellijnDAO = new BestellijnDAO; 
+        foreach ($bestelling->getBestelLijnen() as $bestellijn){
+            $bestellijnDAO->slaOpInDatabase($bestellijn, $bestelling->getBestelId()); 
+        }
+    }
+
+    
+    public function deleteBestelling($bestelling) {
+        $sql = "delete from bestelling where bestelId = :id";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute(array(':id' => $bestelling->getBestelId()));
+        $dbh = null;
+    }
+
 
 }

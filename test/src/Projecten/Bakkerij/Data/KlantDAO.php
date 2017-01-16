@@ -35,6 +35,17 @@ class KlantDAO {
         return $klant;
     }   
     
+    public function slaKlantOp($klant){
+            $sql = "insert klant 
+                set email = :email, wachtwoord = :wachtwoord, naam = :naam, voornaam = :voornaam, straat = :straat, huisnr = :huisnr, woonplaatsId = :woonplaatsId, geblokkeerd = :geblokkeerd";
+            $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+            $stmt = $dbh->prepare($sql);
+            $woonplaatsId = $this->getWoonplaatsId($klant->getPostcode()); 
+            $stmt->execute(array(':email' => $klant->getEmail(),
+                ':wachtwoord' => $klant->getWachtwoord(), ':naam' => $klant->getnaam(), ':voornaam' =>$klant->getVoornaam(), ':straat'=>$klant->getStraat(), ':huisnr'=>$klant->getHuisnr(), ':woonplaatsId'=>$woonplaatsId, ':geblokkeerd'=>$klant->getGeblokkeerd()));
+            $dbh = null;
+    }
+    
     public function updateKlant($klant){
             $sql = "update klant 
                 set wachtwoord = :wachtwoord, naam = :naam, voornaam = :voornaam, straat = :straat, huisnr = :huisnr, woonplaatsId = :woonplaatsId, geblokkeerd = :geblokkeerd

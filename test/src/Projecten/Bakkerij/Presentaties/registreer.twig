@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="libraries/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/opmaak.css">
+
+        <script src="http://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="libraries/bootstrap/js/bootstrap.min.js"></script>
+
+        <title>Bakkerij</title>
+    </head>
+    <body>
+        <div id="navbar" class="navbar-collapse collapse">
+            <nav class="menu">
+                <ul class='nav nav-pills'>
+                    <li ><a href="hoofdpagina.php">Home</a></li> <!-- soort sitemap, wat is er te vinden op de site, wat staat waar--> 
+                    <li class='dropdown'>
+                        <a class='dropdown-toggle' data-toggle='dropdown' href="nieuwebestelling.php">Bestellingen
+                            <span class='caret'></span></a> 
+                        <ul class='dropdown-menu'>
+                            <li><a href="nieuwebestelling.php">Nieuwe bestelling</a></li> 
+                            <li><a href="bestellingnakijken.php">Bestelling nakijken</a></li>
+                            <li><a href="bestellingannuleren.php">Bestelling annuleren</a></li>
+                        </ul></li>      
+                    <li><a href="overons.php">Over ons</a></li> 
+                    {% if klant is not defined %}
+                    <li class="navbar-right" ><a href="aanmelden.php">Aanmelden</a></li> 
+                    <li class="navbar-right active" ><a href="registreren.php">Registreren</a></li> 
+                    {% endif %}
+                    {% if klant is defined %}
+                    <li class="navbar-right" >Welkom {{klant.voornaam}} {{klant.naam}} </li> 
+                    {% endif %}
+                    
+                </ul>
+            </nav>
+        </div> 
+        <div class='container'>
+            <form action="registreren.php" method="post">
+                E-mail: <input type="text" name="email"><br>
+                Voornaam: <input type="text" name="voornaam"><br>
+                Naam: <input type="text" name="naam"><br>
+                Straat: <input type="text" name="straat"><br>
+                Huisnummer: <input type="text" name="huisnr"><br>
+                Postcode: <input type="text" name="postcode"><br>
+                Gemeente: <input type="text" name="gemeente"><br>
+                <input type="submit" value="Registreer">
+            </form>         
+        </div>
+    </body>
+</html>

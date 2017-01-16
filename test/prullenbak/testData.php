@@ -11,7 +11,7 @@ require_once 'Doctrine/Common/ClassLoader.php';
 $classLoader = new ClassLoader("Projecten", "src"); 
 $classLoader->register();  
 
-print('<h1>Tests</h1>');
+print('<h1>Tests Data</h1>');
 print('<h2>ProductDAO</h2>');
 
 $productDAO = new ProductDAO; 
