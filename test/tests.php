@@ -86,7 +86,7 @@ print_r($bestelLijn->getTotaalPrijs());
 print('<h2>Bestelling</h2>');
 $bestelLijn2 = new BestelLijn($product2, 1000); 
 
-$best = new Bestelling($klant); 
+$best = new Bestelling($klant, 7); 
 $best->addBestellijn($bestelLijn); 
 $best->addBestellijn($bestelLijn2); 
 $best->setAfhaalDag('maandag'); 
@@ -130,6 +130,7 @@ $BestellijnDAO = new BestellijnDAO;
 print('<br>'); 
 print('<br>'); 
 print('<br>'); 
+$BestellijnDAO->slaOpInDatabase($bestelLijn, $best2->getBestelId()); 
 
 //print_r($BestellijnDAO->addAllToBestellingen()); 
 

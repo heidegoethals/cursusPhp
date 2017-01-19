@@ -3,7 +3,6 @@ namespace Projecten\Bakkerij\Data;
 
 use Projecten\Bakkerij\Data\DBConfig; 
 use Projecten\Bakkerij\Entities\Product; 
-//use VDAB\Boeken\Exceptions\TitelBestaatException; 
 use PDO; 
 
 class ProductDAO {

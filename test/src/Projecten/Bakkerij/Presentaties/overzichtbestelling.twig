@@ -16,29 +16,76 @@
             <nav class="menu">
                 <ul class='nav nav-pills'>
                     <li><a href="hoofdpagina.php">Home</a></li> <!-- soort sitemap, wat is er te vinden op de site, wat staat waar--> 
-                    <li class='dropdown'>
-                        <a class='dropdown-toggle' data-toggle='dropdown' href="nieuwebestelling.php">Bestellingen
-                            <span class='caret'></span></a> 
-                        <ul class='dropdown-menu'>
-                            <li><a href="nieuwebestelling.php">Nieuwe bestelling</a></li> 
-                            <li  class='active'><a href="bestellingnakijken.php">Bestelling nakijken</a></li>
-                            <li><a href="bestellingannuleren.php">Bestelling annuleren</a></li>
-                        </ul></li>      
+                    <li><a href="nieuwebestelling.php">Plaats bestelling</a></li> 
+
                     <li><a href="overons.php">Over ons</a></li> 
-                    {% if klant is not defined %}
-                    <li class="navbar-right" ><a href="aanmelden.php">Aanmelden</a></li> 
-                    <li class="navbar-right" ><a href="registreren.php">Registreren</a></li> 
-                    {% endif %}
-                    {% if klant is defined %}
-                    <li class="navbar-right" >Welkom {{klant.voornaam}} {{klant.naam}} </li> 
-                    {% endif %}
-                    
+                        {% if klant is not defined %}
+                        <li class="navbar-right" ><a href="aanmelden.php">Aanmelden</a></li> 
+                        <li class="navbar-right" ><a href="registreren.php">Registreren</a></li> 
+                        {% endif %}
+                        {% if klant is defined %}
+                        <li class='dropdown navbar-right'>
+                            <a class='dropdown-toggle navbar-right' data-toggle='dropdown' href="pasgegevensaan.php">{{klant.voornaam}} {{klant.naam}} 
+                                <span class='caret'></span></a> 
+                            <ul class='dropdown-menu navbar-right'>
+                                <li><a href="pasgegevensaan.php">Persoonlijke gegevens bijwerken</a></li> 
+                                <li class='active'><a href="bestellingnakijken.php">Bestellingen nakijken of annuleren</a></li>
+                            </ul></li>    
+                        {%endif%}
+
                 </ul>
             </nav>
         </div> 
-        <div class='container'>
+        <div class='container'> 
 
-           
+
+            <table style="width:100%">
+                <tr>
+                    <th>Afhaaldag</th>
+                    <th>TotaalPrijs</th> 
+                    <th>Bestelling</th>
+                    <th>Annuleren</th>
+                </tr>
+
+
+                {% for bestelling in bestellingen %}
+                    <tr>
+                    <td>{{ bestelling.afhaalDag}}</td>
+                    <td>{{ bestelling.totaalPrijs}}</td>  
+                    <td>
+                        <table style="width:100%">
+                            <tr>
+                                <th>Product</th>
+                                <th>Aantal</th> 
+                            </tr>
+
+                            {% for bestellijn in bestelling.bestellijnen %}
+                                <tr>
+
+
+
+                                <td>{{bestellijn.product.naam}}</td>
+                                <td>{{bestellijn.aantal}}</td>
+
+
+
+
+
+
+                                <br>
+                                </tr>
+                            {%endfor%}
+                        </table>
+
+                    </td>
+                    <td>
+                        {% if bestelling.afhaaldag|date("m/d/Y") > "now"|date("m/d/Y") %}  <a href="annuleerbestelling.php?bestelid={{bestelling.bestelId}}">Annuleer bestelling</a> {% endif%}
+                    </td>
+                    </tr>
+                {% endfor %} 
+
+            </table>
+
         </div>
     </body>
 </html>

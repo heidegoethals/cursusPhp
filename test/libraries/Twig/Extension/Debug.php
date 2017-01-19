@@ -63,3 +63,9 @@ function twig_var_dump(Twig_Environment $env, $context)
 
     return ob_get_clean();
 }
+
+$twig = new Twig_Environment($loader, array(
+    'debug' => true, 
+    //...
+)); 
+$twig->addExtension(new Twig_Extension_Debug()); 

@@ -12,35 +12,31 @@
         <title>Bakkerij</title>
     </head>
     <body>
-        <!--        <div class="navbar-header">
-                    <p>Onze bakkerij</p>
-                </div>-->
         <div id="navbar" class="navbar-collapse collapse">
             <nav class="menu">
                 <ul class='nav nav-pills'>
-                    <li class='active'><a href="hoofdpagina.php">Home</a></li> <!-- soort sitemap, wat is er te vinden op de site, wat staat waar--> 
-                    <li class='dropdown'>
-                        <a class='dropdown-toggle' data-toggle='dropdown' href="nieuwebestelling.php">Bestellingen
-                            <span class='caret'></span></a> 
-                        <ul class='dropdown-menu'>
-                            <li><a href="nieuwebestelling.php">Nieuwe bestelling</a></li> 
-                            <li><a href="bestellingnakijken.php">Bestelling nakijken</a></li>
-                            <li><a href="bestellingannuleren.php">Bestelling annuleren</a></li>
-                        </ul></li>      
+                    <li class='active'><a href="hoofdpagina.php">Home</a></li>  
+                    <li><a href="nieuwebestelling.php">Plaats bestelling</a></li> 
+                                             
                     <li><a href="overons.php">Over ons</a></li> 
-                    {% if klant is not defined %}
-                    <li class="navbar-right" ><a href="aanmelden.php">Aanmelden</a></li> 
-                    <li class="navbar-right" ><a href="registreren.php">Registreren</a></li> 
-                    {% endif %}
-                    {% if klant is defined %}
-                    <li class="navbar-right" >Welkom {{klant.voornaam}} {{klant.naam}} </li> 
-                    {% endif %}
-                    
+                        {% if klant is not defined %}
+                        <li class="navbar-right" ><a href="aanmelden.php">Aanmelden</a></li> 
+                        <li class="navbar-right" ><a href="registreren.php">Registreren</a></li> 
+                        {% endif %}
+                        {% if klant is defined %}
+                        <li class='dropdown navbar-right'>
+                            <a class='dropdown-toggle navbar-right' data-toggle='dropdown' href="pasgegevensaan.php">{{klant.voornaam}} {{klant.naam}} 
+                                <span class='caret'></span></a> 
+                            <ul class='dropdown-menu navbar-right'>
+                                <li><a href="pasgegevensaan.php">Persoonlijke gegevens bijwerken</a></li> 
+                                <li><a href="bestellingnakijken.php">Bestellingen nakijken of annuleren</a></li>
+                            </ul></li>    
+                            {%endif%}
+
                 </ul>
             </nav>
         </div> 
 
-        <!--Verondersteld al aangemeld-->
         <section class="container jumbotron">
             <h1>Welkom bij 't Croissantje!</h1>
         </section>    
@@ -53,7 +49,7 @@
                 Je kan een bestelling plaatsen tot 3 dagen op voorhand. 
             </p>
             <p>
-                Je bestelt je brood en/of gebak dus ten laatste de dag ervoor. De dag zelf kom je tijdens de <a href="overons.html">openingsuren</a> langs om je bestelling op te halen. 
+                Je bestelt je brood en/of gebak dus ten laatste de dag ervoor. De dag zelf kom je tijdens de <a href="overons.php">openingsuren</a> langs om je bestelling op te halen. 
             </p>
             <p>   
                 De betaling gebeurt bij het ophalen van de bestelling. 

@@ -22,12 +22,10 @@ class BestelLijn {
 
     function setProduct($product) {
         $this->product = $product;
-        $this->updateTotaalPrijs();
     }
 
     function setAantal($aantal) {
         $this->aantal = $aantal;
-        $this->updateTotaalPrijs();
     }
 
     function getTotaalPrijs() {

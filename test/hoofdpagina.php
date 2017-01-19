@@ -16,6 +16,7 @@ use Projecten\Bakkerij\Data\ProductDAO;
 use Projecten\Bakkerij\Data\BestellingDAO; 
 use Projecten\Bakkerij\Data\BestellijnDAO; 
 use Projecten\Bakkerij\Data\KlantDAO; 
+use Projecten\Bakkerij\Exceptions\FoutWachtwoordException; 
 
 use Doctrine\Common\ClassLoader; 
 require_once("Doctrine/Common/ClassLoader.php"); 
@@ -31,8 +32,13 @@ $classLoader->register();
 
 $klantSvc = new KlantService; 
 if (isset($_POST["email"]) and isset($_POST["wachtwoord"])){
-    $klant = $klantSvc->meldAan($_POST["email"], $_POST["wachtwoord"]); 
+    try{$klant = $klantSvc->meldAan($_POST["email"], $_POST["wachtwoord"]); 
     $_SESSION["klant"]= serialize($klant); 
+    setcookie("email", $_POST["email"], 2147483647); }
+    catch(FoutWachtwoordException $ex){
+        header("Location: aanmelden.php?exception=foutwachtwoord"); 
+        exit(0); 
+    }
 }
 
 
@@ -47,6 +53,7 @@ if (isset($_SESSION["klant"])){
 else{
     $view = $twig->render($pagina); 
 }
+
 print($view); 
 
 

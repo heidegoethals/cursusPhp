@@ -5,14 +5,14 @@ namespace Projecten\Bakkerij\Data;
 use Projecten\Bakkerij\Data\DBConfig;
 use Projecten\Bakkerij\Entities\Product;
 use Projecten\Bakkerij\Entities\Bestelling;
+use Projecten\Bakkerij\Entities\Bestellijn;
 use Projecten\Bakkerij\Entities\Klant;
 use Projecten\Bakkerij\Data\BestellijnDAO;
-//use VDAB\Boeken\Exceptions\TitelBestaatException; 
 use PDO;
 
 class BestellingDAO {
 
-    //waarschijnlijk overbodig
+    // niet gebruikt, maar reeds geïmplementeerd om ook pagina voor bakker te kunnen schrijven
     public function getAll() {
         $sql = "select bestelId, afhaalDag, totaalPrijs, emailKlant 
             from bestelling";
@@ -65,7 +65,7 @@ class BestellingDAO {
         return $bestellingen;
     }
     
-    public function slaBestellingOp($bestelling) {
+    public function slaBestellingOp($bestelling) { 
         $sql = "insert bestelling set afhaalDag = :afhaaldag, totaalPrijs = :totaalprijs, emailKlant = :emailklant";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $stmt = $dbh->prepare($sql);
@@ -77,14 +77,36 @@ class BestellingDAO {
             $bestellijnDAO->slaOpInDatabase($bestellijn, $bestelling->getBestelId()); 
         }
     }
-
-    
+        
     public function deleteBestelling($bestelling) {
         $sql = "delete from bestelling where bestelId = :id";
         $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
         $stmt = $dbh->prepare($sql);
         $stmt->execute(array(':id' => $bestelling->getBestelId()));
+        $sql = "delete from bestellijnen where bestelId = :id";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute(array(':id' => $bestelling->getBestelId()));
         $dbh = null;
+    }
+    
+    public function getNewBestelId(){
+        $sql = "select bestelId 
+            from bestelling";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute();
+        $resultSet = $stmt->fetchAll(PDO::FETCH_BOTH);
+        $lijst = array(); 
+        foreach ($resultSet as $rij){
+            array_push($lijst, $rij[0]); 
+        }
+        $max = max($lijst); 
+        
+        $dbh = null;
+        $max += 1;
+        return $max;
     }
 
 

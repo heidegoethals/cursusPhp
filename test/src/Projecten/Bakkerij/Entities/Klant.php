@@ -23,7 +23,6 @@ class Klant {
         $this->huisnr = $huisnr; 
         $this->postcode = $postcode; 
         $this->gemeente = $gemeente; 
-        $this->geblokkeerd = 0; 
     }
 
     public static function create($email, $wachtwoord, $naam, $voornaam, $straat, $huisnr, $postcode, $gemeente) {

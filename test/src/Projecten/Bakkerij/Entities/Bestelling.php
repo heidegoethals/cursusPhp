@@ -2,6 +2,8 @@
 
 namespace Projecten\Bakkerij\Entities; 
 
+use Projecten\Bakkerij\Data\BestellingDAO; 
+
 class Bestelling {
     private static $bestelMap = array(); 
     private $bestelId; 
@@ -14,11 +16,13 @@ class Bestelling {
         $this->klant = $klant;
         empty($this->producten);
         $this->totaalPrijs = 0; 
+        $bestellingDAO = new BestellingDAO; 
+        $this->bestelId = $bestellingDAO->getNewBestelId(); 
     }
     
     public static function create($bestelId, $bestellijnen, $afhaalDag, $totaalPrijs, $klant) {
         if (!isset(self::$bestelMap[$bestelId])) {
-            self::$bestelMap[$bestelId] = new Bestelling($bestelId);
+            self::$bestelMap[$bestelId] = new Bestelling($klant);
         }
         $bestelling = self::$bestelMap[$bestelId]; 
         $bestelling->bestelId = $bestelId; 
@@ -31,7 +35,7 @@ class Bestelling {
     
     public static function createZonderBestellijnen($bestelId, $afhaalDag, $totaalPrijs, $klant) {
         if (!isset(self::$bestelMap[$bestelId])) {
-            self::$bestelMap[$bestelId] = new Bestelling($bestelId);
+            self::$bestelMap[$bestelId] = new Bestelling($klant);
         }
         $bestelling = self::$bestelMap[$bestelId]; 
         $bestelling->bestelId = $bestelId; 
@@ -68,6 +72,10 @@ class Bestelling {
 
     function setAfhaalDag($afhaalDag) {
         $this->afhaalDag = $afhaalDag;
+    }
+    
+    function setTotaalPrijs($totaalPrijs) {
+        $this->totaalPrijs = $totaalPrijs;
     }
     
 }

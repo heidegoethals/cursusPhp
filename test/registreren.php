@@ -35,8 +35,10 @@ if (isset($_POST["email"]) and isset($_POST["naam"]) and isset($_POST["voornaam"
     $klant = $klantSvc->nieuweKlant($_POST["email"], $_POST["naam"], $_POST["voornaam"], $_POST["straat"], $_POST["huisnr"], $_POST["postcode"], $_POST["gemeente"]);
     $_SESSION["klant"] = serialize($klant);
         $pagina = "geregistreerd.twig";
+    setcookie("email", $_POST["email"], 2147483647); 
+
     $view = $twig->render($pagina, array("klant"=> $klant));
-    print($view);    
+    print($view);  
 } else {
     $pagina = "registreer.twig";
     $view = $twig->render($pagina);

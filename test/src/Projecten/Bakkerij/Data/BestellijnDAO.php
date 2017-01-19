@@ -6,7 +6,6 @@ use Projecten\Bakkerij\Entities\Product;
 use Projecten\Bakkerij\Entities\Bestelling; 
 use Projecten\Bakkerij\Entities\Klant; 
 use Projecten\Bakkerij\Entities\BestelLijn; 
-//use VDAB\Boeken\Exceptions\TitelBestaatException; 
 use PDO; 
 
 

@@ -1,7 +1,0 @@
-Todo: 
-
-
-
-
-Eventueel als tijd: 
-Juist afhandelen van create indien product &/| klant al bestaan. 

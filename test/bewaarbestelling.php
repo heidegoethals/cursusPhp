@@ -29,17 +29,12 @@ $classLoader = new ClassLoader("Projecten", "src");
 $classLoader->register();  
 
 $pagina = "nieuwebestelling.twig"; 
-if (isset($_SESSION["klant"])){
-    $klant = unserialize($_SESSION["klant"]); 
-}
-else{
-    //TODO: exception: bestelling bevestigen zonder ingelogd te zijn kan niet
-}
+$klant = unserialize($_SESSION["klant"]); 
 
 $bestelling = unserialize($_SESSION["bestelling"]); 
 
 $bestelSvc = new BestelService; 
-$bestelSvc->slaBestellingOp($bestelling, $_POST["afhaaldag"]); 
+$bestelSvc->slaBestellingOp($klant, $bestelling, $_POST["afhaaldag"]); 
 
 header('location: hoofdpagina.php'); 
 exit(0); 

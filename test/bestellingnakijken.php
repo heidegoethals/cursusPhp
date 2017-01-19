@@ -31,7 +31,9 @@ $classLoader->register();
 $pagina = "overzichtbestelling.twig"; 
 if (isset($_SESSION["klant"])){
     $klant = unserialize($_SESSION["klant"]); 
-    $view = $twig->render($pagina, array("klant"=> $klant));  
+    $KlantDAO = new KlantDAO; 
+    $bestellingen = $KlantDAO->getBestellingen($klant); 
+    $view = $twig->render($pagina, array("klant"=> $klant, "bestellingen"=>$bestellingen));  
 }
 else{
     $view = $twig->render($pagina); 

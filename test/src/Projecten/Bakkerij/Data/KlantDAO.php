@@ -2,6 +2,9 @@
 namespace Projecten\Bakkerij\Data; 
 
 use Projecten\Bakkerij\Entities\Klant; 
+use Projecten\Bakkerij\Entities\BestelLijn;
+use Projecten\Bakkerij\Entities\Bestelling; 
+use Projecten\Bakkerij\Data\ProductDAO; 
 use PDO; 
 
 class KlantDAO {
@@ -28,8 +31,8 @@ class KlantDAO {
         $stmt->execute(array(':email'=>$emailklant));
         $rij = $stmt->fetch(PDO::FETCH_ASSOC);
         $klant = Klant::create($rij["email"], $rij["wachtwoord"], $rij["naam"], $rij["voornaam"], $rij["straat"], $rij["huisnr"], $rij["postcode"], $rij["gemeente"]);
-        if ($rij["geblokkeerd"]==true){
-            $klant->setGeblokkeerd(true); 
+        if ($rij["geblokkeerd"]==1){
+            $klant->setGeblokkeerd(1); 
         }
         $dbh = null;
         return $klant;
@@ -42,7 +45,7 @@ class KlantDAO {
             $stmt = $dbh->prepare($sql);
             $woonplaatsId = $this->getWoonplaatsId($klant->getPostcode()); 
             $stmt->execute(array(':email' => $klant->getEmail(),
-                ':wachtwoord' => $klant->getWachtwoord(), ':naam' => $klant->getnaam(), ':voornaam' =>$klant->getVoornaam(), ':straat'=>$klant->getStraat(), ':huisnr'=>$klant->getHuisnr(), ':woonplaatsId'=>$woonplaatsId, ':geblokkeerd'=>$klant->getGeblokkeerd()));
+                ':wachtwoord' => sha1("salt".$klant->getWachtwoord()."salt"), ':naam' => $klant->getnaam(), ':voornaam' =>$klant->getVoornaam(), ':straat'=>$klant->getStraat(), ':huisnr'=>$klant->getHuisnr(), ':woonplaatsId'=>$woonplaatsId, ':geblokkeerd'=>$klant->getGeblokkeerd()));
             $dbh = null;
     }
     
@@ -54,7 +57,39 @@ class KlantDAO {
             $stmt = $dbh->prepare($sql);
             $woonplaatsId = $this->getWoonplaatsId($klant->getPostcode()); 
             $stmt->execute(array(':email' => $klant->getEmail(),
-                ':wachtwoord' => $klant->getWachtwoord(), ':naam' => $klant->getnaam(), ':voornaam' =>$klant->getVoornaam(), ':straat'=>$klant->getStraat(), ':huisnr'=>$klant->getHuisnr(), ':woonplaatsId'=>$woonplaatsId, ':geblokkeerd'=>$klant->getGeblokkeerd()));
+                ':wachtwoord' => sha1("salt".$klant->getWachtwoord()."salt"), ':naam' => $klant->getnaam(), ':voornaam' =>$klant->getVoornaam(), ':straat'=>$klant->getStraat(), ':huisnr'=>$klant->getHuisnr(), ':woonplaatsId'=>$woonplaatsId, ':geblokkeerd'=>$klant->getGeblokkeerd()));
             $dbh = null;
+    }
+    
+        
+    public function getBestellingen($klant){
+        $sql = "select bestelId, afhaalDag, totaalPrijs
+            from bestelling 
+            where emailKlant = :email";
+        $dbh = new PDO(DBConfig::$DB_CONNSTRING, DBConfig::$DB_USERNAME, DBConfig::$DB_PASSWORD);
+        $stmt = $dbh->prepare($sql);
+        $stmt->execute(array(':email'=>$klant->getEmail()));
+        $resultSet = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $bestellingen = array(); 
+        foreach ($resultSet as $rij){
+            $bestelling = Bestelling::createZonderBestellijnen($rij["bestelId"], $rij["afhaalDag"], $rij["totaalPrijs"], $klant); 
+            $sql = "select productId, aantal
+            from bestellijnen 
+            where bestelId = :bestelId";
+
+            $stmt = $dbh->prepare($sql);
+            $stmt->execute(array(':bestelId'=>$rij["bestelId"]));
+            $resultSet = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $productDAO = new ProductDAO; 
+            foreach ($resultSet as $rij){
+                $product = $productDAO->getById($rij["productId"]); 
+                $bestellijn = new BestelLijn($product, $rij["aantal"]);   
+                $bestelling->addBestelLijn($bestellijn); 
+            }
+            array_push($bestellingen, $bestelling); 
+        }    
+        $dbh = null;
+
+        return $bestellingen;
     }
 }

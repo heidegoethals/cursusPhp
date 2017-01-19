@@ -15,34 +15,29 @@
         <div id="navbar" class="navbar-collapse collapse">
             <nav class="menu">
                 <ul class='nav nav-pills'>
-                    <li><a href="hoofdpagina.php">Home</a></li> <!-- soort sitemap, wat is er te vinden op de site, wat staat waar--> 
-                    <li class='dropdown'>
-                        <a class='dropdown-toggle' data-toggle='dropdown' href="nieuwebestelling.php">Bestellingen
-                            <span class='caret'></span></a> 
-                        <ul class='dropdown-menu'>
-                            <li><a href="nieuwebestelling.php">Nieuwe bestelling</a></li> 
-                            <li><a href="bestellingnakijken.php">Bestelling nakijken</a></li>
-                            <li><a href="bestellingannuleren.php">Bestelling annuleren</a></li>
-                        </ul></li>      
+                    <li><a href="hoofdpagina.php">Home</a></li> 
+                    <li><a href="nieuwebestelling.php">Plaats bestelling</a></li> 
+
                     <li><a href="overons.php">Over ons</a></li> 
-                    {% if klant is not defined %}
                     <li class="navbar-right active" ><a href="aanmelden.php">Aanmelden</a></li> 
                     <li class="navbar-right" ><a href="registreren.php">Registreren</a></li> 
-                    {% endif %}
-                    {% if klant is defined %}
-                    <li class="navbar-right" ><a>Welkom {{klant.voornaam}} {{klant.naam}} </a></li> 
-                    {% endif %}
-                    
+
+
                 </ul>
             </nav>
         </div> 
         <div class='container'>
+            {% if fout is defined %}
+                <p style='color:red'>Wachtwoord fout, probeer opnieuw</p>
+            {%endif%}
+
             <form action="hoofdpagina.php" method="post">
-                E-mail: <input type="text" name="email"><br>
+
+                E-mail: <input type="text" name="email" value="{{email}}"><br>
                 Wachtwoord: <input type="text" name ="wachtwoord"><br>
                 <input type="submit" value="Meld aan">
             </form>
-           
+
         </div>
     </body>
 </html>

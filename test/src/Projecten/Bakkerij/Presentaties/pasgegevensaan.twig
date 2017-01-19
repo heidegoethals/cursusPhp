@@ -17,8 +17,8 @@
                 <ul class='nav nav-pills'>
                     <li><a href="hoofdpagina.php">Home</a></li> 
                     <li><a href="nieuwebestelling.php">Plaats bestelling</a></li> 
-                                             
-                    <li class='active'><a href="overons.php">Over ons</a></li> 
+
+                    <li><a href="overons.php">Over ons</a></li> 
                         {% if klant is not defined %}
                         <li class="navbar-right" ><a href="aanmelden.php">Aanmelden</a></li> 
                         <li class="navbar-right" ><a href="registreren.php">Registreren</a></li> 
@@ -28,42 +28,29 @@
                             <a class='dropdown-toggle navbar-right' data-toggle='dropdown' href="pasgegevensaan.php">{{klant.voornaam}} {{klant.naam}} 
                                 <span class='caret'></span></a> 
                             <ul class='dropdown-menu navbar-right'>
-                                <li><a href="pasgegevensaan.php">Persoonlijke gegevens bijwerken</a></li> 
+                                <li class='active'><a href="pasgegevensaan.php">Persoonlijke gegevens bijwerken</a></li> 
                                 <li><a href="bestellingnakijken.php">Bestellingen nakijken of annuleren</a></li>
                             </ul></li>    
-                            {%endif%}
+                        {%endif%}
 
                 </ul>
             </nav>
         </div> 
         <div class='container'>
+            <form action="pasgegevensaan.php" method="post">
+                Voornaam: <input type="text" name="voornaam" value="{{klant.voornaam}}"><br>
+                Naam: <input type="text" name="naam" value="{{klant.naam}}"><br>
+                Straat: <input type="text" name="straat" value="{{klant.straat}}"><br>
+                Huisnummer: <input type="text" name="huisnr" value="{{klant.huisnr}}"><br>
+                Postcode: <input type="text" name="postcode" value="{{klant.postcode}}"><br>
+                Gemeente: <input type="text" name="gemeente" value="{{klant.gemeente}}"><br>
+                <input type="submit" value="Pas aan">
+            </form>   
 
-            <h1>Over ons</h1>
-            <div>
-                <img src='img/croissant.jpg' class='fotoR thumbnail'>
-
-                <h2>Info</h2>
-                <dl>
-                    <dt>Adres: </dt>
-                    <dd>Croissantstraat 17, 1110 Brownie</dd>
-                    <dt>Telefoon: </dt>
-                    <dd>012/34.56.78</dd>  
-                    <dt>E-mail: </dt>
-                    <dd>tcroissantje@gmail.com</dd>
-                </dl>
-            </div>
-
-            <div class='clear'>
-                <h2>Openingsuren</h2>
-                <dl>
-                    <dt>Maandag tot vrijdag: </dt>
-                    <dd>8u30 tot 19u</dd>
-                    <dt>Zaterdag: </dt>
-                    <dd>9u tot 18u</dd>
-                    <dt>Zondag: </dt>
-                    <dd>9u tot 13u</dd>             
-                </dl>
-            </div>
+            <form action="pasgegevensaan.php" method="post">
+                Wachtwoord: <input type="text" name="wachtwoord"><br>
+                <input type="submit" value="Pas wachtwoord aan">
+            </form>   
         </div>
     </body>
 </html>

@@ -4,6 +4,7 @@ namespace Projecten\Bakkerij\Business;
 
 use Projecten\Bakkerij\Entities\Klant;
 use Projecten\Bakkerij\Data\KlantDAO;
+use Projecten\Bakkerij\Exceptions\FoutWachtwoordException; 
 
 class KlantService {
     private function nieuwWachtwoord(){
@@ -24,21 +25,22 @@ class KlantService {
     }
     
     public function meldAan($email, $wachtwoord){
+
+        
         $klantDAO = new KlantDAO; 
         $klant = $klantDAO->getByEmail($email); 
-        if ($klant->getWachtwoord() == $wachtwoord){
+        $wachtwoordsalt = sha1("salt".$wachtwoord."salt"); 
+        if (!($klant->getWachtwoord() == $wachtwoordsalt)) {
+            throw new FoutWachtwoordException();
+        }        
         return $klant;
-        }
-        else{
-            //TODO: fout wachtwoord afhandelen. 
-        }
     }
     
-    public function updateKlant($email, $wachtwoord, $naam, $voornaam, $straat, $huisnr, $postcode, $gemeente) {
-        $klant = new Klant($email, $wachtwoord, $naam, $voornaam, $straat, $huisnr, $postcode, $gemeente); 
+    public function updateKlant($klant) {
         $klantDAO = new KlantDAO; 
         $klantDAO->updateKlant($klant); 
     }  
+
 
 }
 
