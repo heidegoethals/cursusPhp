@@ -65,9 +65,13 @@ class Bestelling {
         return $this->klant;
     }
 
-    function addBestelLijn($bestellijn) {
+    function addBestelLijnMetKostprijs($bestellijn) {
         array_push($this->bestellijnen, $bestellijn);
         $this->totaalPrijs += $bestellijn->getTotaalPrijs(); 
+    }
+    
+    function addBestelLijn($bestellijn) {
+        array_push($this->bestellijnen, $bestellijn);
     }
 
     function setAfhaalDag($afhaalDag) {
