@@ -36,7 +36,7 @@ class BestelService {
             throw new BestellingNegatiefAantal;
         }
         $bestellijn = new BestelLijn($product, $aantal);
-        $bestelling->addBestelLijn($bestellijn);
+        $bestelling->addBestelLijnMetKostprijs($bestellijn);
     }
 
     public function slaBestellingOp($klant, $bestelling, $afhaalDag) {
